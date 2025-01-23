@@ -1,10 +1,14 @@
 -- User Interface main script
 
 local loginScreen = require "xPingModules/ui/screens/login"
-local preflightScreen = require "xPingModules/ui/screens/preflight"
+local preflightScreen = require "xPingModules/ui/screens/preflightScreen"
 local loginErrorScreen = require "xPingModules/ui/screens/loginErrorScreen"
 local connectingScreen = require "xPingModules/ui/screens/connectingScreen"
 local loggedScreen = require "xPingModules/ui/screens/loggedScreen"
+local menuScreen = require "xPingModules/ui/screens/menuScreen"
+local requestsScreen = require "xPingModules/ui/screens/requestsScreen"
+local metarScreen = require "xPingModules/ui/screens/metarScreen"
+local messageScreen = require "xPingModules/ui/screens/messageScreen"
 
 local ui = {
 	showWindow = false,
@@ -18,7 +22,11 @@ local screenMap = {
 	[STATUS.PREFLIGHT] = preflightScreen,
 	[STATUS.LOG_ERROR] = loginErrorScreen,
 	[STATUS.LOGGED] = loggedScreen,
-	[STATUS.LOGGING] = connectingScreen
+	[STATUS.LOGGING] = connectingScreen,
+	[STATUS.MENU] = menuScreen,
+	[STATUS.REQUESTS] = requestsScreen,
+	[STATUS.METAR] = metarScreen,
+	[STATUS.MESSAGE_LIST] = messageScreen
 }
 
 local errorMsg = ""

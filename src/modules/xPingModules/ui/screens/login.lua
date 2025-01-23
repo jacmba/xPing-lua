@@ -37,7 +37,7 @@ function loginScreen.show()
 	
 	-- Pilot callsign
 	-- imgui.TextUnformatted("")	
-	local changed, newCallsign = imgui.InputTextWithHint("Call sign", "My ATC radio callsign", myCredentials.CALLSIGN, 20)
+	local changed, newCallsign = imgui.InputTextWithHint("Callsign", "My ATC radio callsign", myCredentials.CALLSIGN, 20)
 	
 	if changed then
 		myCredentials.CALLSIGN = newCallsign
@@ -64,6 +64,7 @@ function loginScreen.show()
 	if imgui.Button("Connect") then
 		App.status = STATUS.LOGGING
 		local co = coroutine.create(acars.do_login)
+		credentials.set_credentials(myCredentials)
 		coroutine.resume(co, credentials, saveCredentialsFlag)
 	end
 end

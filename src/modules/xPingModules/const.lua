@@ -10,7 +10,12 @@ STATUS = {
 	LOGGING = 2,
 	LOGGED = 3,
 	LOG_ERROR = 4,
-	PREFLIGHT = 5
+	PREFLIGHT = 5,
+	MENU = 6,
+	REQUESTS = 7,
+	METAR = 8,
+	ATIS = 9,
+	MESSAGE_LIST = 10
 }
 
 -- Possible client networks
