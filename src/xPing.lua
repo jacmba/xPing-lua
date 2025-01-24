@@ -6,6 +6,7 @@
 
 require "xPingModules/const"
 require "xPingModules/app"
+require "xPingModules/utils"
 
 local ui = require "xPingModules/ui"
 

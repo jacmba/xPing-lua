@@ -44,7 +44,7 @@ function loginScreen.show()
 	end
 	
 	-- Pilot Hoppie logon secret
-	imgui.TextUnformatted("")
+	Utils.newLine()
 	local changed, newLogon = imgui.InputTextWithHint("Hoppie logon", "My Hoppie ACARS logon secret", myCredentials.LOGON, 100)
 	
 	if changed then
@@ -52,7 +52,7 @@ function loginScreen.show()
 	end
 	
 	-- Save credentials check
-	imgui.TextUnformatted("")
+	Utils.newLine()
 	local changed, newSaveCredentials = imgui.Checkbox("Save credentials", saveCredentialsFlag)
 	
 	if changed then
@@ -60,7 +60,7 @@ function loginScreen.show()
 	end
 	
 	-- Confirm login!
-	imgui.TextUnformatted("")
+	Utils.newLine()
 	if imgui.Button("Connect") then
 		App.status = STATUS.LOGGING
 		local co = coroutine.create(acars.do_login)

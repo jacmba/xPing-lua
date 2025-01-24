@@ -4,7 +4,7 @@ local preflight = {}
 
 function preflight.show()
 	imgui.TextUnformatted("PREFLIGHT")
-	imgui.TextUnformatted("")
+	Utils.newLine()
 	
 	-- Origin airport
 	local changed, newOrig = imgui.InputTextWithHint("From", "ZZZZ", App.flightplan.orig, 5)

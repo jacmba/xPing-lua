@@ -16,7 +16,7 @@ local station = ""
 
 function metarScreen.show()
 	imgui.TextUnformatted("Request metar")
-	imgui.TextUnformatted("")
+	Utils.newLine()
 	
 	if not station or #station == 0 then
 		station = App.flightplan.orig
@@ -48,21 +48,19 @@ function metarScreen.show()
 	if selection == METAR_OPTION.CUST then
 		local changed, newStation = imgui.InputTextWithHint("Enter station", "ZZZZ", customStation, 5)
 		if changed then
-			customStation = newStation
+			customStation = newStation:upper()
 			station = customStation
 		end
 	end
 	
-	imgui.TextUnformatted("")
-	imgui.TextUnformatted("")
+	Utils.newLine()
 	if imgui.Button("Request METAR") then
 		imgui.TextUnformatted("Sending request...")
 		local co = coroutine.create(acars.request_metar)
 		coroutine.resume(co, station)
 	end
 	
-	imgui.TextUnformatted("")
-	imgui.TextUnformatted("")
+	Utils.newLine(2)
 	if imgui.Button("Return to requests menu") then
 		App.goToRequests()
 	end

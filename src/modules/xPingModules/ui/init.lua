@@ -9,6 +9,8 @@ local menuScreen = require "xPingModules/ui/screens/menuScreen"
 local requestsScreen = require "xPingModules/ui/screens/requestsScreen"
 local metarScreen = require "xPingModules/ui/screens/metarScreen"
 local messageScreen = require "xPingModules/ui/screens/messageScreen"
+local atisScreen = require "xPingModules/ui/screens/atisScreen"
+local pdcScreen = require "xPingModules/ui/screens/pdcScreen"
 
 local ui = {
 	showWindow = false,
@@ -26,7 +28,9 @@ local screenMap = {
 	[STATUS.MENU] = menuScreen,
 	[STATUS.REQUESTS] = requestsScreen,
 	[STATUS.METAR] = metarScreen,
-	[STATUS.MESSAGE_LIST] = messageScreen
+	[STATUS.MESSAGE_LIST] = messageScreen,
+	[STATUS.ATIS] = atisScreen,
+	[STATUS.PDC] = pdcScreen
 }
 
 local errorMsg = ""

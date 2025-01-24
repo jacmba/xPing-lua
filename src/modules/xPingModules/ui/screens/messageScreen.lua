@@ -4,19 +4,32 @@ local messageScreen = {}
 
 function messageScreen.show()
 	imgui.TextUnformatted("RECEIVED MESSAGES")
-	if imgui.BeginChild("Received messages", 350, 200, true) then
-		for _, msg in ipairs(App.messages) do
-			local message = msg.message
-			if imgui.TreeNode(message.title) then
-				imgui.TextUnformatted(message.content)
-			end
+	Utils.newLine()
+	
+	for i, msg in ipairs(App.messages) do
+		local message = msg.message
+		local title = message.title
+		
+		if not msg.read then
+			title = "(*) " .. title
+			Utils.setTextColor(UI_COLOR.BLUE)
 		end
 		
-		imgui.TextUnformatted("")
-		imgui.TextUnformatted("")
+		if imgui.TreeNode(title) then
+			-- Utils.unsetTextColor()
+			imgui.TextUnformatted(message.content)
+			
+			if imgui.Button("Delete") then
+				table.remove(App.messages, i)
+			end
+			
+			imgui.TreePop()
+			msg.read = true
+		end
+		Utils.unsetTextColor()
 	end
 	
-	imgui.EndChild()
+	Utils.newLine(2)
 	
 	if imgui.Button("Back to menu") then
 		App.goToMenu()

@@ -15,7 +15,8 @@ STATUS = {
 	REQUESTS = 7,
 	METAR = 8,
 	ATIS = 9,
-	MESSAGE_LIST = 10
+	MESSAGE_LIST = 10,
+	PDC = 11
 }
 
 -- Possible client networks
@@ -36,4 +37,9 @@ MESSAGE_TYPE = {
 	POSREQ = "posreq",
 	POSITION = "position",
 	DATAREQ = "datareq"
+}
+
+-- UI Colors
+UI_COLOR = {
+	BLUE = 0xFFA89300
 }

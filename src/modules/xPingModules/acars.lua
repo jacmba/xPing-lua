@@ -64,6 +64,59 @@ function acars.request_metar(station)
 	coroutine.yield()
 end
 
+-- Request ATIS
+function acars.request_atis(station)	
+	local resp, code = api.send_message(
+		MESSAGE_TYPE.INFOREQ,
+		App.callsign,
+		SERVER,
+		"VATATIS " .. station
+	)
+	
+	if code == "200" then
+		local prefix = "{acars info {"
+		local i = string.find(resp, prefix) + #prefix
+		local j = string.find(resp, "}}") - 1
+		local parsedResponse = string.sub(resp, i, j)
+		acars.receive_message({
+			title = "ATIS from " .. station,
+			content = parsedResponse
+		})
+	end
+	
+	coroutine.yield()
+end
+
+-- Request PDC
+function acars.request_pdc(station, stand, atisVersion, freeText)
+	local requestMsg = 
+		"REQUEST PREDEP CLEARANCE " ..
+		App.callsign ..
+		" " ..
+		PLANE_ICAO ..
+		" TO " ..
+		App.flightplan.dest ..
+		" AT " ..
+		App.flightplan.orig ..
+		" STAND " ..
+		stand ..
+		" ATIS " ..
+		atisVersion
+		
+	if #freeText > 0 then
+		requestMsg = requestMsg .. " " .. freeText
+	end
+	
+	local resp, code = api.send_message(
+		MESSAGE_TYPE.TELEX,
+		App.callsign,
+		station,
+		requestMsg
+	)
+	
+	coroutine.yield()
+end
+
 -- Add received message to the list
 function acars.receive_message(msg)
 	table.insert(App.messages, 1, {
