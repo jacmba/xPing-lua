@@ -27,3 +27,43 @@ function Utils.unsetTextColor()
 		popped = false
 	end
 end
+
+-- Parse server response
+function Utils.parseResponse(resp)
+	local msgList = {}
+	local buffer = ""
+	local result = ""
+	local header = ""
+	
+	for i = 1, #resp do
+		local currentChar = string.sub(resp, i, i)
+		if currentChar == "{" then
+			if result == ""  and buffer ~= " " then
+				result = string.sub(buffer, 0, #buffer - 1)
+			elseif header == "" and buffer ~= " " then
+				header = string.sub(buffer, 0, #buffer - 1)
+			end
+			buffer = ""
+		elseif currentChar == "}" then
+			if buffer ~= "" and header ~= "" then
+				table.insert(msgList, {
+					title = header,
+					content = buffer
+				})
+				logMsg("Received msg: [" .. header .. "] " .. buffer)
+				
+				header = ""
+			end
+			
+			buffer = ""
+		else
+			buffer = buffer .. currentChar
+		end
+	end
+	
+	if result == "" then
+		result = buffer
+	end
+	
+	return result, msgList
+end

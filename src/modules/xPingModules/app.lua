@@ -1,5 +1,7 @@
 -- Application global variables
 
+local acars = require "xPingModules/acars"
+
 App = {
 	status = STATUS.OFFLINE,
 	netWork = NETWORK.VATSIM,
@@ -15,8 +17,13 @@ App = {
 		dest = "",
 		etd = "",
 		eta = ""
-	}
+	},
+	
+	-- Polling timer
+	lastPoll = 0
 }
+
+local POLLING_TIME = 4
 
 -- Navigation functions
 
@@ -53,4 +60,15 @@ function App.hasPendingMsgs()
 		end
 	end
 	return false
+end
+
+function App.runPolling()
+	if App.status <= STATUS.PREFLIGHT or os.clock() - App.lastPoll < POLLING_TIME then
+		return
+	end
+	App.lastPoll = os.clock()
+	logMsg("Polling every " .. POLLING_TIME .. " seconds... " .. tostring(App.lastPoll))
+	
+	local co = coroutine.create(acars.get_messages)
+	coroutine.resume(co)
 end

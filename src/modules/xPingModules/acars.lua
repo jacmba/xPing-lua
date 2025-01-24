@@ -117,6 +117,28 @@ function acars.request_pdc(station, stand, atisVersion, freeText)
 	coroutine.yield()
 end
 
+-- Get pending messages
+function acars.get_messages()
+	local resp, code = api.send_message(
+		MESSAGE_TYPE.POLL,
+		App.callsign,
+		SERVER,
+		""
+	)
+	
+	if code == "200" then
+		result, messages = Utils.parseResponse(resp)
+		
+		if result == "ok" then
+			for _, msg in ipairs(messages) do
+				acars.receive_message(msg)
+			end
+		end
+	end
+	
+	coroutine.yield()
+end
+
 -- Add received message to the list
 function acars.receive_message(msg)
 	table.insert(App.messages, 1, {

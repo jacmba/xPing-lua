@@ -27,4 +27,6 @@ function toggle_window()
 	end
 end
 
+do_sometimes("App.runPolling()")
+
 create_command("Jazbelt/xPing/ToggleWindow", "Show or hide xPing ACARS window", "toggle_window()", "", "")

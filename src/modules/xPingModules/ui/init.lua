@@ -44,10 +44,10 @@ function create_ui(wnd)
 end
 
 -- Handle window closing
-local function close_window(wnd)
-	showWindow = false
-	canShow = true
-	canClose = false
+function close_window(wnd)
+	ui.showWindow = false
+	ui.canShow = true
+	ui.canClose = false
 	logMsg("Main window closed")
 end
 
